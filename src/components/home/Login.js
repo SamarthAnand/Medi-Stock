@@ -75,7 +75,7 @@ function Login() {
         
 
 
-        <div className='p-2 w-100'>
+        <div className='container mx-auto my-8'>
         <form onSubmit={handleSubmit} className=" shadow-lg p-3 mb-5  rounded formView">
           <h3>Login Form</h3>
           <div className="ui divider"></div>
@@ -103,10 +103,11 @@ function Login() {
               />
             </div>
             <p className='error'>{formErrors.password}</p>
-            <button type='submit' className="buttonBlue">Sign In</button>
+            <button type='submit' className="rounded bg-slate-600 text-white px-6 py-2 font-semibold">Sign In</button>
+            <Link className="rounded bg-slate-600 text-white px-6 py-2 font-semibold" to='/sign-up'>SignUp</Link>
+       
           </div>
           <div id='loginAfter'></div>
-        <Link to='/sign-up'>SignUp</Link>
         </form>
         </div>
       </div>

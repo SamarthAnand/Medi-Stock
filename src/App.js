@@ -9,11 +9,16 @@ import AddMedicine from "./components/medicine/AddMedicine";
 import MedicineList from "./components/medicine/MedicineList";
 import SignUp from "./components/home/SignUp";
 import Login from "./components/home/Login";
+import ViewById from "./components/sales/ViewById";
+import ViewByDate from "./components/sales/ViewByDate";
+import ViewAllSales from "./components/sales/ViewAllSales";
+import Footer from "./components/home/Footer";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+      <div class="flex flex-col h-screen justify-between">
         <Navbar />
         <Routes>
           <Route index element={<HomePage />} />
@@ -28,8 +33,17 @@ function App() {
           <Route path="/medicineList" element={<MedicineList />} />
           <Route path="/addmedicine" element={<AddMedicine />} />
          
+          <Route path="/viewById" element={<ViewById />} />
+
+          <Route path="/viewByDate" element={<ViewByDate />} />
+          <Route path="/viewAllSales" element={<ViewAllSales />} />
+          <Route path="/viewByEmployees" element={<ViewById />} />
+
           </Routes>
+          <Footer/>
+          </div>
       </BrowserRouter>
+     
     </>
   );
 }

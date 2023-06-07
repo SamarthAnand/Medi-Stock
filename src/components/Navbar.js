@@ -5,7 +5,7 @@ const Navbar = () => {
     <div className="bg-gray-800">
       <div className="h-16 px-8 flex items-center">
         <a className="text-white font-bold" 
-        href="\">Employee Management System</a>
+        href="\">MediStock Management System</a>
       </div>
     </div>
   );
