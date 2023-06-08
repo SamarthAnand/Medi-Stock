@@ -13,7 +13,9 @@ import ViewById from "./components/sales/ViewById";
 import ViewByDate from "./components/sales/ViewByDate";
 import ViewAllSales from "./components/sales/ViewAllSales";
 import Footer from "./components/home/Footer";
+import AddStock from "./components/stocks/AddStock";
 
+import StockList from "./components/stocks/StockList";
 function App() {
   return (
     <>
@@ -39,6 +41,8 @@ function App() {
           <Route path="/viewAllSales" element={<ViewAllSales />} />
           <Route path="/viewByEmployees" element={<ViewById />} />
 
+          <Route path="/stockList" element={<StockList />}/>
+          <Route path="/addstock" element={<AddStock />}/>
           </Routes>
           <Footer/>
           </div>
