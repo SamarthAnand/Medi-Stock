@@ -24,16 +24,17 @@ useEffect(() => {
   fetchData();
 }, []);
 
-const deleteMedicine = (e, medicineId) => {
+const deleteMedicine = (e, id) => {
   e.preventDefault();
-  MedicineService.deleteMedicine(medicineId).then((res) => {
+  MedicineService.deleteMedicine(id).then((res) => {
     if (medicines) {
       setMedicines((prevElement) => {
-        return prevElement.filter((medicine) => medicine.medicineId !== medicineId);
+        return prevElement.filter((medicine) => medicine.medicineId !== id);
       });
     }
   });
 };
+
   return (
     <div className="container mx-auto my-8">
         <div className="h-12">
@@ -59,17 +60,16 @@ const deleteMedicine = (e, medicineId) => {
                         <th className="text-right font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Actions</th>
                     </tr>
                 </thead>
-                
+           { /* {!loading && (  */}
             <tbody className="bg-white">
-             
-                <Medicine
-               
-                  deleteMedicine={deleteMedicine}
+            { /* {medicines.map((medicine) => ( */}
+                  <Medicine
                   ></Medicine>
-                 
-                </tbody>
-                 
-                 
+                { /*  medicine={medicine} deleteMedicine={deleteMedicine} key={medicine.medicineId} */}
+                  
+             { /*  ))}  */}
+             </tbody>
+            { /*  )} */}
             </table>
         </div>
     </div>

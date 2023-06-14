@@ -4,11 +4,7 @@ import MedicineService from '../../services/MedicineService';
 
 const UpdateMedicine = () => {
   const { medicineId } = useParams();
-  const navigate = useNavigate();
-  const [formErrors, setFormErrors] = useState({});
-  const [formValues, setFormValues] = useState(medicine);
   const [medicine,setMedicine] = useState({
-        
     medicineId: medicineId,
     batchCode: "", 
     medicineName: "", 
@@ -18,10 +14,8 @@ const UpdateMedicine = () => {
     sellingPrice:"", 
     manufacturer:"", 
     rack:""
-    
-
 });
-
+const navigate = useNavigate();
 
 const handleChange = (e) => {
     const value = e.target.value;
@@ -31,17 +25,16 @@ const handleChange = (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await MedicineService.getMedicineById(medicine.medicineId);
+        const response = await MedicineService.getMedicineById(medicineId);
         setMedicine(response.data);
       } catch (error) {
         console.log(error);
       }
     };
-    setFormErrors(validate(formValues))
     fetchData();
   }, []);
 
-  const validate = (value)=>{
+  /*const validate = (value)=>{
     const errors = {}
    
     if(!value.medicineId){
@@ -73,7 +66,7 @@ const handleChange = (e) => {
       } 
       
     return errors;
-  }
+  }*/
 
   const updateMedicine = (e) => {
     e.preventDefault();
@@ -106,7 +99,7 @@ const handleChange = (e) => {
                 className="h-10 w-96 border mt-2 px-2 py-2"
                 ></input>
             </div>
-            <p className='error'>{formErrors.medicineId}</p>
+            
 
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">
@@ -121,7 +114,7 @@ const handleChange = (e) => {
                 
                 ></input>
             </div>
-            <p className='error'>{formErrors.medicineName}</p>
+           
 
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">
@@ -131,7 +124,7 @@ const handleChange = (e) => {
                 value={medicine.medicineType}
                 onChange={(e) => handleChange(e)}></input>
             </div>
-            <p className='error'>{formErrors.medicineType}</p>
+            
 
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">
@@ -141,7 +134,7 @@ const handleChange = (e) => {
                 value={medicine.batchCode}
                 onChange={(e) => handleChange(e)}></input>
             </div>
-            <p className='error'>{formErrors.batchCode}</p>
+            
 
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">
@@ -151,7 +144,7 @@ const handleChange = (e) => {
                 value={medicine.expiryDate}
                 onChange={(e) => handleChange(e)} ></input>
             </div>
-            <p className='error'>{formErrors.expiryDate}</p>
+            
 
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">
@@ -161,7 +154,7 @@ const handleChange = (e) => {
                 value={medicine.purchasePrice}
                 onChange={(e) => handleChange(e)}></input>
             </div>
-            <p className='error'>{formErrors.purchasePrice}</p>
+            
 
 
             <div className="items-center justify-center h-14 w-full my-4">
@@ -172,7 +165,7 @@ const handleChange = (e) => {
                 value={medicine.sellingPrice}
                 onChange={(e) => handleChange(e)}></input>
             </div>
-            <p className='error'>{formErrors.sellingPrice}</p>
+            
 
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">
@@ -182,7 +175,7 @@ const handleChange = (e) => {
                 value={medicine.manufacturer}
                 onChange={(e) => handleChange(e)}></input>
             </div>
-            <p className='error'>{formErrors.manufacturer}</p>
+            
 
             <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">
@@ -192,7 +185,7 @@ const handleChange = (e) => {
                 value={medicine.rack}
                 onChange={(e) => handleChange(e)}></input>
             </div>
-            <p className='error'>{formErrors.rack}</p>
+           
 
         <div className="items-center justify-center h-14 w-full my-4 space-x-4 pt-4">
           <button

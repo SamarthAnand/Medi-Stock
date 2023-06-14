@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const MEDICINE_API_BASE_URL = "http://localhost:8203/api";
+const MEDICINE_API_BASE_URL = "http://localhost:8203/api/";
 
 class MedicineService {
 
   saveMedicine(medicine) {
-    return axios.post(MEDICINE_API_BASE_URL + "/" + "add-medicine", medicine);
+    return axios.post(MEDICINE_API_BASE_URL + "add-medicine", medicine);
   }
 
   getMedicines() {
@@ -13,15 +13,15 @@ class MedicineService {
   }
 
   deleteMedicine(id) {
-    return axios.delete(MEDICINE_API_BASE_URL + "/deleteMedicine/{medicineId}" + id);
+    return axios.delete(MEDICINE_API_BASE_URL + "deleteMedicine" + "/" + id);
   }
 
   getMedicineById(id) {
-    return axios.get(MEDICINE_API_BASE_URL + "/getMedicine/{medicineId}" + id);
+    return axios.get(MEDICINE_API_BASE_URL + "getMedicine" + "/" + id);
   }
 
-  updateMedicine(medicine, id) {
-    return axios.put(MEDICINE_API_BASE_URL + "/update-medicine" + id, medicine);
+  updateMedicine(medicine) {
+    return axios.put(MEDICINE_API_BASE_URL + "update-medicine" , medicine);
   }
 }
 

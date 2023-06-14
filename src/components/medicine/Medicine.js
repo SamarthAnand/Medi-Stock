@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const Medicine = ({ medicine, deleteMedicine }) => {
   const navigate = useNavigate();
-  
   const editMedicine = (e, medicineId) => {
     e.preventDefault();
     navigate(`/editMedicine/${medicineId}`);
