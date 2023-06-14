@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import MedicineService from "../services/MedicineService";
+import MedicineService from '../../services/MedicineService';
 import Medicine from './Medicine';
 
 const MedicineList = () => {
@@ -59,16 +59,17 @@ const deleteMedicine = (e, medicineId) => {
                         <th className="text-right font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Actions</th>
                     </tr>
                 </thead>
-                {!loading && (
+                
             <tbody className="bg-white">
-              {medicines.map((medicine) => (
+             
                 <Medicine
-                medicine={medicine}
+               
                   deleteMedicine={deleteMedicine}
-                  key={medicine.medicineId}></Medicine>
-              ))}    
+                  ></Medicine>
+                 
                 </tbody>
-                 )}
+                 
+                 
             </table>
         </div>
     </div>
