@@ -31,11 +31,11 @@ function App() {
 
           <Route path="/employeeList" element={<EmployeeList />} />
           <Route path="/addEmployee" element={<AddEmployee />} />
-          <Route path="/editEmployee/:medicineId" element={<UpdateEmployee />} />
+          <Route path="/editEmployee/:id" element={<UpdateEmployee />} />
 
           <Route path="/medicineList" element={<MedicineList />} />
           <Route path="/addmedicine" element={<AddMedicine />} />
-          <Route path="/editMedicine/:id" element={<UpdateMedicine />} />
+          <Route path="/editMedicine/:medicineId" element={<UpdateMedicine />} />
          
           <Route path="/viewById" element={<ViewById />} />
 

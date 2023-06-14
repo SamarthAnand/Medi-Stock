@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import MedicineService from '../../services/MedicineService';
 import Medicine from './Medicine';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MedicineList = () => {
 const navigate =useNavigate();
 
 const [loading, setLoading] = useState(true);
 const [medicines, setMedicines] = useState([]);
+
 
 useEffect(() => {
   const fetchData = async () => {
@@ -23,16 +26,24 @@ useEffect(() => {
   fetchData();
 }, []);
 
-const deleteMedicine = (e, id) => {
+const deleteMedicine = async (e, id) => {
   e.preventDefault();
-  MedicineService.deleteMedicine(id).then((res) => {
-    if (medicines) {
-      setMedicines((prevElement) => {
-        return prevElement.filter((medicine) => medicine.medicineId !== id);
-      });
+
+  const confirmDelete = window.confirm("Are you sure you want to delete this medicine?");
+  if (confirmDelete) {
+    try {
+      await MedicineService.deleteMedicine(id);
+      setMedicines(prevMedicines =>
+        prevMedicines.filter(medicine => medicine.medicineId !== id)
+      );
+      toast.success("Medicine Deleted Successfully!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to delete medicine");
     }
-  });
+  }
 };
+
 
   return (
     <div className="container mx-auto my-8">

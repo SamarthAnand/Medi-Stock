@@ -8,6 +8,8 @@ const Medicine = ({ medicine, deleteMedicine }) => {
     navigate(`/editMedicine/${medicineId}`);
   };
 
+  
+
   return (
     <tr key={medicine.medicineId}>
       <td className="text-left px-6 py-4 whitespace-nowrap">
@@ -41,12 +43,12 @@ const Medicine = ({ medicine, deleteMedicine }) => {
 
       <td className="text-right px-6 py-4 whitespace-nowrap font-medium text-sm">
         <a
-          onClick={(e, medicineId) => editMedicine(e, medicine.medicineId)}
+          onClick={(e) => editMedicine(e, medicine.medicineId)}
           className="text-indigo-600 hover:text-indigo-800 px-4 hover:cursor-pointer">
           Edit
         </a>
         <a
-          onClick={(e, medicineId) => deleteMedicine(e, medicine.medicineId)}
+          onClick={(e) => deleteMedicine(e, medicine.medicineId)}
           className="text-indigo-600 hover:text-indigo-800 hover:cursor-pointer">
           Delete
         </a>
