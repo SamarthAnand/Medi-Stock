@@ -1,115 +1,100 @@
-import React, { useEffect,useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import MedicineService from '../../services/MedicineService';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import MedicineService from "../services/MedicineService";
 
-const AddMedicine = () => {
-
-    const [medicine,setMedicine] = useState({
+const UpdateMedicine = () => {
+  const { medicineId } = useParams();
+  const navigate = useNavigate();
+  const [formErrors, setFormErrors] = useState({});
+  const [formValues, setFormValues] = useState(medicine);
+  const [medicine,setMedicine] = useState({
         
-        medicineId:"",
-        batchCode: "", 
-        medicineName: "", 
-        medicineType: "", 
-        expiryDate: "", 
-        purchasePrice:"", 
-        sellingPrice:"", 
-        manufacturer:"", 
-        rack:""
-        
+    medicineId: medicineId,
+    batchCode: "", 
+    medicineName: "", 
+    medicineType: "", 
+    expiryDate: "", 
+    purchasePrice:"", 
+    sellingPrice:"", 
+    manufacturer:"", 
+    rack:""
     
-    });
 
-    const [formValues, setFormValues] = useState(medicine);
-    const [formErrors, setFormErrors] = useState({});
-    const [isSubmit, setIsSubmit] = useState(false);
-
-    const navigate =useNavigate(); 
-
-    const handleChange = (e) => {
-        const value = e.target.value;
-        setMedicine({ ...medicine, [e.target.name]: value });
-      };
-
-      const saveMedicine = (e) => {
-        e.preventDefault();
-        MedicineService.saveMedicine(medicine)
-        .then((response) => {
-          console.log(response);
-          navigate("/medicineList");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        setFormErrors(validate(formValues))
-        //setIsSubmit(true);
-      };
+});
 
 
-      /*useEffect(()=>{
-      
-        if(Object.keys(formErrors).length === 0 && isSubmit){
-          console.log("Medicine added");
-        }
-      },[formErrors])*/
+const handleChange = (e) => {
+    const value = e.target.value;
+    setMedicine({ ...medicine, [e.target.name]: value });
+  };
 
-
-    const validate = (value)=>{
-        const errors = {}
-       
-        if(!value.medicineId){
-          errors.medicineId = "Please provide Medicine ID"
-        } 
-        if(!value.batchCode){
-          errors.batchCode = "Please provide Batch Code"
-        } 
-        if(!value.medicineName){
-          errors.medicineName = "Please provide Medicine Name"
-        } 
-        if(!value.medicineType){
-            errors.medicineType = "Please provide Medicine Type"
-          } 
-          if(!value.expiryDate){
-            errors.expiryDate = "Please provide Expiry Date"
-          } 
-          if(!value.purchasePrice){
-            errors.purchasePrice = "Please provide Purchase Price"
-          } 
-          if(!value.sellingPrice){
-            errors.sellingPrice = "Please provide Selling Price"
-          } 
-          if(!value.manufacturer){
-            errors.manufacturer = "Please provide Manufacturer"
-          } 
-          if(!value.rack){
-            errors.rack = "Please provide Rack"
-          } 
-          
-        return errors;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await MedicineService.getMedicineById(medicine.medicineId);
+        setMedicine(response.data);
+      } catch (error) {
+        console.log(error);
       }
+    };
+    setFormErrors(validate(formValues))
+    fetchData();
+  }, []);
 
-      const reset = (e) => {
-        e.preventDefault();
-        setMedicine({
-          medicineId:"",
-          batchCode: "", 
-          medicineName: "", 
-          medicineType: "", 
-          expiryDate: "", 
-          purchasePrice:"", 
-          sellingPrice:"", 
-          manufacturer:"", 
-          rack:""
-        });
-      };
+  const validate = (value)=>{
+    const errors = {}
+   
+    if(!value.medicineId){
+      errors.medicineId = "Please provide Medicine ID"
+    } 
+    if(!value.batchCode){
+      errors.batchCode = "Please provide Batch Code"
+    } 
+    if(!value.medicineName){
+      errors.medicineName = "Please provide Medicine Name"
+    } 
+    if(!value.medicineType){
+        errors.medicineType = "Please provide Medicine Type"
+      } 
+      if(!value.expiryDate){
+        errors.expiryDate = "Please provide Expiry Date"
+      } 
+      if(!value.purchasePrice){
+        errors.purchasePrice = "Please provide Purchase Price"
+      } 
+      if(!value.sellingPrice){
+        errors.sellingPrice = "Please provide Selling Price"
+      } 
+      if(!value.manufacturer){
+        errors.manufacturer = "Please provide Manufacturer"
+      } 
+      if(!value.rack){
+        errors.rack = "Please provide Rack"
+      } 
+      
+    return errors;
+  }
 
+  const updateMedicine = (e) => {
+    e.preventDefault();
+    console.log(medicine);
+    MedicineService.updateMedicine(medicine,medicineId)
+      .then((response) => {
+        navigate("/medicineList");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="flex max-w-2xl mx-auto shadow border-b">
-        <div className="px-8 py-8">
-            <div className="font-thin text-2xl tracking-wider">
-                <h1>Add New Medicine</h1>
-            </div>
-            <div className="items-center justify-center h-14 w-full my-4">
+      <div className="px-8 py-8">
+        <div className="font-thin text-2xl tracking-wider">
+          <h1>Update Medicine</h1>
+        </div>
+
+        <div className="items-center justify-center h-14 w-full my-4">
                 <label className="block text-gray-600 text-sm font-normal">
                     Medicine ID
                 </label>
@@ -209,18 +194,21 @@ const AddMedicine = () => {
             </div>
             <p className='error'>{formErrors.rack}</p>
 
-            <div className="items-center justify-center h-14 w-full my-4 space-x-4 pt-4">
-                <button className="rounded text-white font-semibold bg-green-500 py-2 px-6 hover:bg-green-700" 
-                onClick={saveMedicine}>Save</button>
-
-                <button className="rounded text-white font-semibold bg-red-500 py-2 px-6 hover:bg-red-700"
-                onClick={reset}
-                >Clear</button>
-            </div>
-
+        <div className="items-center justify-center h-14 w-full my-4 space-x-4 pt-4">
+          <button
+            onClick={updateMedicine}
+            className="rounded text-white font-semibold bg-green-400 hover:bg-green-700 py-2 px-6">
+            Update
+          </button>
+          <button
+            onClick={() => navigate("/medicineList")}
+            className="rounded text-white font-semibold bg-red-400 hover:bg-red-700 py-2 px-6">
+            Cancel
+          </button>
         </div>
+      </div>
     </div>
   );
 };
 
-export default AddMedicine;
+export default UpdateMedicine;

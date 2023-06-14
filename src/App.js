@@ -7,6 +7,7 @@ import UpdateEmployee from "./components/employee/UpdateEmployee";
 import HomePage from "./components/home/HomePage";
 import AddMedicine from "./components/medicine/AddMedicine";
 import MedicineList from "./components/medicine/MedicineList";
+import UpdateMedicine from "./components/medicine/UpdateMedicine";
 import SignUp from "./components/home/SignUp";
 import Login from "./components/home/Login";
 import ViewById from "./components/sales/ViewById";
@@ -34,6 +35,7 @@ function App() {
 
           <Route path="/medicineList" element={<MedicineList />} />
           <Route path="/addmedicine" element={<AddMedicine />} />
+          <Route path="/editMedicine/:id" element={<UpdateMedicine />} />
          
           <Route path="/viewById" element={<ViewById />} />
 
