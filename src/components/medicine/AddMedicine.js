@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MedicineService from '../../services/MedicineService';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AddMedicine = () => {
 
@@ -121,7 +122,6 @@ const saveMedicine = (e) => {
           rack:""
         });
       };
-
       return (
         <div className="flex max-w-2xl mx-auto shadow border-b">
             <div className="px-8 py-8">
@@ -240,5 +240,6 @@ const saveMedicine = (e) => {
         </div>
       );
     };
+
 
 export default AddMedicine;

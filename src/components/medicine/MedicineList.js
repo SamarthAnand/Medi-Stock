@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MedicineService from '../../services/MedicineService';
 import Medicine from './Medicine';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MedicineList = () => {
 const navigate =useNavigate();
@@ -26,9 +27,7 @@ useEffect(() => {
   fetchData();
 }, []);
 
-const deleteMedicine = async (e, id) => {
-  e.preventDefault();
-
+const deleteMedicine = async (id) => {
   const confirmDelete = window.confirm("Are you sure you want to delete this medicine?");
   if (confirmDelete) {
     try {
@@ -44,47 +43,64 @@ const deleteMedicine = async (e, id) => {
   }
 };
 
-
-  return (
-    <div className="container mx-auto my-8">
-        <div className="h-12">
-            <button 
-            onClick={() => navigate("/addMedicine")}
-            className="rounded bg-slate-600 text-white px-6 py-2">
-                Add Medicine
-            </button>
-        </div>
-        <div className="flex shadow border-b">
-            <table className="min-w-full">
-                <thead className="bg-gray-50">
-                    <tr >
-                    <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Medicine ID</th>
-                    <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Medicine Name</th>
-                    <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Medicine Type</th>
-                        <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Batch Code</th>
-                        <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Expiry Date</th>
-                        <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Purchase Price</th>
-                        <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Selling Price</th>
-                        <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Manufacturer</th>
-                        <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Rack</th>
-                        <th className="text-right font-medium text-gray-500 uppercase tracking-wider py-3 px-6">Actions</th>
-                    </tr>
-                </thead>
-            {!loading && (  
-            <tbody className="bg-white">
-             {medicines.map((medicine) => ( 
-                  <Medicine
-                  medicine={medicine} 
-                  deleteMedicine={deleteMedicine} 
-                  key={medicine.medicineId} 
-                  ></Medicine>
-                  ))}  
-             </tbody>
-              )} 
-            </table>
-        </div>
+return (
+  <div className="container mt-4">
+    <div className="row">
+      <div className="col-md-8">
+        <h2 className="mb-4">Medicine List</h2>
+      </div>
+      <div className="col-md-4 text-end">
+        <Link to="/addMedicine" className="btn btn-primary">
+          Add Medicine
+        </Link>
+      </div>
     </div>
-  );
+    <table className="table">
+      <thead>
+        <tr className ="uppercase">
+          <th>Medicine ID</th>
+          <th>Medicine Name</th>
+          <th>Medicine Type</th>
+          <th>Batch Code</th>
+          <th>Expiry Date</th>
+          <th>Purchase Price</th>
+          <th>Selling Price</th>
+          <th>Manufacturer</th>
+          <th>Rack</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {medicines.map((medicine) => (
+          <tr key={medicine.medicineId}>
+            <td>{medicine.medicineId}</td>
+            <td>{medicine.medicineName}</td>
+            <td>{medicine.medicineType}</td>
+            <td>{medicine.batchCode}</td>
+            <td>{medicine.expiryDate}</td>
+            <td>{medicine.purchasePrice}</td>
+            <td>{medicine.sellingPrice}</td>
+            <td>{medicine.manufacturer}</td>
+            <td>{medicine.rack}</td>
+
+            <td>
+              <Link to={`/editMedicine/${medicine.medicineId}`} className="btn btn-primary btn-sm me-2">
+                Edit
+              </Link>
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => deleteMedicine(medicine.medicineId)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
 };
+  
 
 export default MedicineList;
