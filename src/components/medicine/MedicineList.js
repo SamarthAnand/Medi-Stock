@@ -5,6 +5,8 @@ import Medicine from './Medicine';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const MedicineList = () => {
 const navigate =useNavigate();
@@ -45,6 +47,7 @@ const deleteMedicine = async (id) => {
 
 return (
   <div className="container mt-4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <div className="row">
       <div className="col-md-8">
         <h2 className="mb-4">Medicine List</h2>
@@ -84,14 +87,15 @@ return (
             <td>{medicine.rack}</td>
 
             <td>
-              <Link to={`/editMedicine/${medicine.medicineId}`} className="btn btn-primary btn-sm me-2">
-                Edit
+              <Link to={`/editMedicine/${medicine.medicineId}`} className="btn btn-sm me-2">
+              
+              <i class="far fa-edit" style={{color: '#140505'}}></i> 
               </Link>
               <button
-                className="btn btn-danger btn-sm"
+                className="delete-btn" 
                 onClick={() => deleteMedicine(medicine.medicineId)}
               >
-                Delete
+                <i className="fas fa-trash"></i>
               </button>
             </td>
           </tr>
