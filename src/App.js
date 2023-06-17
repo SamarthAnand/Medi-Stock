@@ -14,8 +14,8 @@ import ViewByDate from "./components/sales/ViewByDate";
 import ViewAllSales from "./components/sales/ViewAllSales";
 import Footer from "./components/home/Footer";
 import AddStock from "./components/stocks/AddStock";
-
 import StockList from "./components/stocks/StockList";
+import ReportList from "./components/report/ReportList";
 function App() {
   return (
     <>
@@ -43,6 +43,8 @@ function App() {
 
           <Route path="/stockList" element={<StockList />}/>
           <Route path="/addstock" element={<AddStock />}/>
+
+          <Route path="/reportList" element={<ReportList />}></Route>
           </Routes>
           <Footer/>
           </div>

@@ -1,28 +1,28 @@
+import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 //import { addTrainee } from "../Actions/TraineeActions";
-
+import  {signUp} from '../service/AuthService';
 function SignUp() {
     const navigate = useNavigate();
   const initialValues = {
-    traineeId:100,
-    userName: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    location: "",
-    contact: "",
-    email: "",
-    familyInfo: "",
-    aadharNo: "",
-    dob: ""
+    userId:"",
+    userName:"",
+    password:"",
+    firstName:"",
+    lastName:"",
+    role:"",
+    dob:"",
+    doJoining:"",
+    aadharNo: ""
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -32,14 +32,27 @@ function SignUp() {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
+    // signUp(formValues).then((response) =>{
+    //   console.log(response);
+    //   console.log("success log");
+    // }).catch((err)=>{
+    //   console.log(err);
+    // });
   };
 
   useEffect(()=>{
     console.log(formErrors)
     if(Object.keys(formErrors).length === 0 && isSubmit){
     //  dispatch(addTrainee(formValues));
-      alert("Successfully Signed Up")
-    }
+    axios.post(`http://localhost:8201/users/register`,formValues)
+    .then((response) => 
+    console.log(response)).catch(err => {
+      console.log("error message",err);
+    });
+    setIsSubmit(false);
+ //   navigate("/login");
+  
+  }
   },[formErrors])
 
   const validate = (value) => {
@@ -64,20 +77,10 @@ function SignUp() {
     if (!value.lastName) {
       errors.lastName = "Please provide lastname";
     }
-    if (!value.location) {
-      errors.location = "Please provide location";
+    if (!value.role) {
+      errors.role = "Please provide role";
     }
-    if (!value.contact) {
-      errors.contact = "Please provide contact";
-    } else if (value.contact.length !== 10) {
-      errors.contact = "Contact should be 10 digit number";
-    }
-    if (!value.email) {
-      errors.email = "Please provide email";
-    }
-    if (!value.familyInfo) {
-      errors.familyInfo = "Please provide family info";
-    }
+    
     if (!value.aadharNo) {
       errors.aadharNo = "Please provide Aadhar Number";
     } else if (value.aadharNo.length !== 12) {
@@ -85,6 +88,9 @@ function SignUp() {
     }
     if (!value.dob) {
       errors.dob = "Please provide DOB";
+    }
+    if (!value.doJoining) {
+      errors.dob = "Please provide DOJoining";
     }
     return errors;
   };
@@ -124,28 +130,10 @@ function SignUp() {
         <p className="error">{formErrors.lastName}</p>
 
         <div className="field">
-          <label>Location</label>
-          <input type="text" name="location" onChange={handleChange} />
+          <label>Role</label>
+          <input type="text" name="role" onChange={handleChange} />
         </div>
-        <p className="error">{formErrors.location}</p>
-
-        <div className="field">
-          <label>Contact</label>
-          <input type="number" name="contact" onChange={handleChange} />
-        </div>
-        <p className="error">{formErrors.contact}</p>
-
-        <div className="field">
-          <label>Email</label>
-          <input type="email" name="email" onChange={handleChange} />
-        </div>
-        <p className="error">{formErrors.email}</p>
-
-        <div className="field">
-          <label>Family info</label>
-          <input type="text" name="familyInfo" onChange={handleChange} />
-        </div>
-        <p className="error">{formErrors.familyInfo}</p>
+        <p className="error">{formErrors.role}</p>
 
         <div className="field">
           <label>Aadhar Number</label>
@@ -158,6 +146,11 @@ function SignUp() {
           <input type="date" name="dob" onChange={handleChange}/>
         </div>
         <p className="error">{formErrors.dob}</p>
+        <div className="field">
+          <label>Date Of Joining</label>
+          <input type="date" name="doJoining" onChange={handleChange}/>
+        </div>
+        <p className="error">{formErrors.doJoining}</p>
         
         <button type="submit" className="buttonBlue">
           Register

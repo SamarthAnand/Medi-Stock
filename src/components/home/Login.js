@@ -4,6 +4,7 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import AuthUser from '../service/AuthUser';
 //import { fetchUser } from '../Actions/UserAction';
 
 function Login() {
@@ -11,6 +12,7 @@ function Login() {
    // const data = useSelector((state) => state.user)
 
     const navigate = useNavigate();
+  //  const {http,setToken} = AuthUser();
     const initialValues = {username : "", password : ""}
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
@@ -23,8 +25,9 @@ function Login() {
   
     const handleSubmit = (e)=>{
       e.preventDefault();
-      setFormErrors(validate(formValues))
+      setFormErrors(validate(formValues));
       setIsSubmit(true);
+      
     }
   
     useEffect(()=>{
@@ -32,23 +35,23 @@ function Login() {
       if(Object.keys(formErrors).length === 0 && isSubmit){
         // dispatch(fetchUser(formValues.username, formValues.password));
         console.log("admin and home here");
-        // axios
-        // .get(`http://localhost:8202/api/UserLogin/${formValues.username}/${formValues.password}`)
-        // .then((data) => {
-        //     document.getElementById('loginAfter').innerHTML = 'Login Successful'
-        //     console.log(formValues)
-        //     if(formValues.username === 'admin'){
-        //       navigate('/admin')
-        //     }else{
-        //       navigate('/home');
-        //     }
-        // 
-    //})
-        // .catch((error) => {
+      // http
+      //   .post('/login',{userName:formValues.username,password:formValues.password})
+      //   .then((data) => {
+      //      // document.getElementById('loginAfter').innerHTML = 'Login Successful'
+      //       console.log(formValues)
+      //       // if(formValues.username === 'admin'){
+            //   navigate('/admin')
+            // }else{
+            //   navigate('/home');
+            // }
+        
+    }
+        // .catch('(error) => {
         //   // console.log(error)
         //   document.getElementById('loginAfter').innerHTML = error.response.data.errorMessage
         // });
-      }
+      
     },[formErrors])
   
     const validate = (value)=>{
