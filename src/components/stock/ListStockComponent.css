@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  thead, tfoot {
+    display: none;
+  }
+  table {
+    background: none !important;
+    border: none !important;
+  }
+  tr {
+    display: inline-block;
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    margin: 1.5rem;
+    border: 1px solid grey;
+    border-radius: 10px;
+    box-shadow: 0 0 10px;
+  }
+  td {
+    display: block;
+  }
+
+div{
+    display: block;
+}
+
+.heading{
+    border-radius: 15px 50px 30px 5px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(17, 39, 28); 
+    text-align: center; 
+    padding-left: 1.5rem;  
+    padding-right: 1.5rem;
+    padding-top: .75rem; 
+    padding-bottom: .75rem
+ }
+
+.AddStock{
+     border-radius: 15px 15px 15px 15px;
+    background-color: darkgray; 
+    color:white;
+    padding-left: 1.5rem; /* 24px */ 
+     padding-right: 1.5rem; /* 24px */ 
+    padding-top: .75rem; /*20px */
+    padding-bottom: .75rem;/* 20px */ 
+}
