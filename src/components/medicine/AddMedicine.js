@@ -4,6 +4,7 @@ import MedicineService from '../../services/MedicineService';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 const AddMedicine = () => {
 
@@ -23,9 +24,12 @@ const AddMedicine = () => {
     });
 
     const [errors, setErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+
     const navigate =useNavigate(); 
 
 const handleChange = (e) => {
+    e.preventDefault();
         const { name, value } = e.target;
         setMedicine({ ...medicine, [name]: value });
         setErrors({ ...errors, [name]: "" });
@@ -85,9 +89,9 @@ const handleChange = (e) => {
       };*/
       
 const saveMedicine = (e) => {
-  e.preventDefault();
-  const newErrors = validate();
-  if (Object.keys(newErrors).length === 0) {
+    e.preventDefault();
+    const newErrors = validate();
+ if (Object.keys(newErrors).length === 0) {
     // Valid form, proceed with saving the medicine
     MedicineService.saveMedicine(medicine)
       .then((response) => {
@@ -105,6 +109,26 @@ const saveMedicine = (e) => {
     toast.error("Please provide all the details and try again");
   }
 };
+//     useEffect(()=>{
+//     console.log(errors)
+//     if(Object.keys(errors).length === 0 && isSubmit){
+//     //  dispatch(addTrainee(formValues));
+//     axios.post(`http://localhost:8203/medicine/add-medicine`,medicine)
+//     .then((response) => 
+//     {
+//         console.log(response);
+//         toast.success("Medicine saved successfully!");
+    
+//     }).catch(err => {
+//         console.log("error message",err);
+//         toast.error("Failed to save medicine.");
+//     });
+//     setIsSubmit(false);
+//  //   navigate("/login");
+  
+//   }
+//   },[errors])
+
 
       
 

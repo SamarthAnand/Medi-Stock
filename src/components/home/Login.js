@@ -13,11 +13,12 @@ function Login() {
 
     const navigate = useNavigate();
   //  const {http,setToken} = AuthUser();
-    const initialValues = {username : "", password : ""}
+    const initialValues = {userName : "", password : ""}
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
   
+const API_URL = "http://localhost:8201/users/";
     const handleChange = (e)=>{
       const {name, value} = e.target
       setFormValues({...formValues, [name] : value});
@@ -29,35 +30,58 @@ function Login() {
       setIsSubmit(true);
       
     }
-  
     useEffect(()=>{
-      
+      console.log(formErrors)
       if(Object.keys(formErrors).length === 0 && isSubmit){
-        // dispatch(fetchUser(formValues.username, formValues.password));
-        console.log("admin and home here");
-      // http
-      //   .post('/login',{userName:formValues.username,password:formValues.password})
-      //   .then((data) => {
-      //      // document.getElementById('loginAfter').innerHTML = 'Login Successful'
-      //       console.log(formValues)
-      //       // if(formValues.username === 'admin'){
-            //   navigate('/admin')
-            // }else{
-            //   navigate('/home');
-            // }
-        
-    }
-        // .catch('(error) => {
-        //   // console.log(error)
-        //   document.getElementById('loginAfter').innerHTML = error.response.data.errorMessage
-        // });
+      //  dispatch(addTrainee(formValues));
+      axios
+      .post(API_URL + "token", { formValues })
+      .then((response) => {
+        if (response.data.accessToken) {
+       localStorage.setItem("token", JSON.stringify(response.data));
+        }
+
+       
+      }).catch((error) =>{
+        console.log(error);
+      });
       
+      setIsSubmit(false);
+     
+    
+    }
     },[formErrors])
+  
+   
+  
+    // useEffect(()=>{
+      
+    //   if(Object.keys(formErrors).length === 0 && isSubmit){
+    //     // dispatch(fetchUser(formValues.username, formValues.password));
+    //     console.log("admin and home here");
+    //   // http
+    //   //   .post('/login',{userName:formValues.username,password:formValues.password})
+    //   //   .then((data) => {
+    //   //      // document.getElementById('loginAfter').innerHTML = 'Login Successful'
+    //   //       console.log(formValues)
+    //   //       // if(formValues.username === 'admin'){
+    //         //   navigate('/admin')
+    //         // }else{
+    //         //   navigate('/home');
+    //         // }
+        
+    // }
+    //     // .catch('(error) => {
+    //     //   // console.log(error)
+    //     //   document.getElementById('loginAfter').innerHTML = error.response.data.errorMessage
+    //     // });
+      
+    // },[formErrors])
   
     const validate = (value)=>{
       const errors = {}
-      if(!value.username){
-        errors.username = "Please provide username"
+      if(!value.userName){
+        errors.userName = "Please provide username"
       }
       if(!value.password){
         errors.password = "Please provide password"
@@ -87,13 +111,13 @@ function Login() {
               <label>Username</label>
               <input
                 type="text"
-                name="username"
+                name="userName"
                 placeholder="Username"
                 value={formValues.username}
                 onChange={handleChange}
               />
             </div>
-            <p className='error'>{formErrors.username}</p>
+            <p className='error'>{formErrors.userName}</p>
 
             <div className="field">
               <label>Password</label>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EmployeeService from "../../services/EmployeeService";
@@ -7,21 +8,27 @@ const EmployeeList = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
-  const [employees, setEmployees] = useState(null);
+  const [employees, setEmployees] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await EmployeeService.getEmployees();
-        setEmployees(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  useEffect(()=>{
+  //  console.log(formErrors)
+    try{
+    //  dispatch(addTrainee(formValues));
+    axios.get(`http://localhost:8209/employee/all-employee`)
+    .then((response) => {
+    console.log(response);
+    setEmployees(response.data)})
+    .catch(err => {
+      console.log("error message",err);
+    });
+   // setIsSubmit(false);
+   
+  }catch(error){
+    console.log(error);
+  }
+  },[])
+
+ 
 
   const deleteEmployee = (e, id) => {
     e.preventDefault();
@@ -35,16 +42,21 @@ const EmployeeList = () => {
   };
 
   return (
-    <div className="container mx-auto my-8">
-      <div className="h-12">
+    <div className="container mt-4">
+      <div className="row">
+      <div className="col-md-8">
+        <h2 className="mb-4">Employee List</h2>
+      </div>
+     <div className="col-md-4 text-end">
         <button
           onClick={() => navigate("/addEmployee")}
-          className="rounded bg-slate-600 text-white px-6 py-2 font-semibold">
+          className="btn btn-primary">
           Add Employee
         </button>
-      </div>
+  </div>
+  </div>
       <div className="flex shadow border-b">
-        <table className="min-w-full">
+        <table className="table">
           <thead className="bg-gray-50">
             <tr>
               <th className="text-left font-medium text-gray-500 uppercase tracking-wider py-3 px-6">
@@ -61,8 +73,9 @@ const EmployeeList = () => {
               </th>
             </tr>
           </thead>
-          {/*{!loading && (
+        
             <tbody className="bg-white">
+            
               {employees.map((employee) => (
                 <Employee
                   employee={employee}
@@ -70,8 +83,8 @@ const EmployeeList = () => {
                   key={employee.id}></Employee>
               ))}
             </tbody>
-          )}
-              */}
+         
+              
         </table>
       </div>
     </div>

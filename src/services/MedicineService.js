@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const MEDICINE_API_BASE_URL = "http://localhost:8203/api/";
+const MEDICINE_API_BASE_URL = "http://localhost:8203/medicine/";
 
 class MedicineService {
 

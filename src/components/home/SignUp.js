@@ -50,7 +50,7 @@ function SignUp() {
       console.log("error message",err);
     });
     setIsSubmit(false);
- //   navigate("/login");
+    navigate("/login");
   
   }
   },[formErrors])
