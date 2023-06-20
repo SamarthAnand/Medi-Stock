@@ -65,30 +65,10 @@ const handleChange = (e) => {
         return errors;
       };
 
-     /* const saveMedicine = (e) => {
-        e.preventDefault();
-        const newErrors = validate();
-        if (Object.keys(newErrors).length === 0) {
-          
-          MedicineService.saveMedicine(medicine)
-            .then((response) => {
-              console.log(response);
-              navigate("/medicineList");
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        } else {
-          
-          setErrors(newErrors);
-        }
-      };*/
-      
 const saveMedicine = (e) => {
   e.preventDefault();
   const newErrors = validate();
   if (Object.keys(newErrors).length === 0) {
-    // Valid form, proceed with saving the medicine
     MedicineService.saveMedicine(medicine)
       .then((response) => {
         console.log(response);
@@ -100,7 +80,6 @@ const saveMedicine = (e) => {
         toast.error("Failed to save medicine.");
       });
   } else {
-    // Invalid form, update the errors state and show an error toast notification
     setErrors(newErrors);
     toast.error("Please provide all the details and try again");
   }

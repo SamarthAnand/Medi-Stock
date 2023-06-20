@@ -11,8 +11,11 @@ function Login() {
    // const data = useSelector((state) => state.user)
 
     const navigate = useNavigate();
-    const initialValues = {username : "", password : ""}
+    const initialValues = {"userName" : "", "password" : ""}
     const [formValues, setFormValues] = useState(initialValues);
+    const [userName,setUserName] = useState("");
+    const [password,setPassword] = useState("");
+    
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
   
@@ -23,6 +26,8 @@ function Login() {
   
     const handleSubmit = (e)=>{
       e.preventDefault();
+      setUserName(formValues.userName);
+      setPassword(formValues.password);
       setFormErrors(validate(formValues))
       setIsSubmit(true);
     }
@@ -30,31 +35,34 @@ function Login() {
     useEffect(()=>{
       
       if(Object.keys(formErrors).length === 0 && isSubmit){
-        // dispatch(fetchUser(formValues.username, formValues.password));
+        // dispatch(fetchUser(formValues.userName, formValues.password));
         console.log("admin and home here");
-        // axios
-        // .get(`http://localhost:8202/api/UserLogin/${formValues.username}/${formValues.password}`)
-        // .then((data) => {
-        //     document.getElementById('loginAfter').innerHTML = 'Login Successful'
-        //     console.log(formValues)
-        //     if(formValues.username === 'admin'){
-        //       navigate('/admin')
-        //     }else{
-        //       navigate('/home');
-        //     }
-        // 
-    //})
-        // .catch((error) => {
-        //   // console.log(error)
-        //   document.getElementById('loginAfter').innerHTML = error.response.data.errorMessage
-        // });
+        axios
+        .post(`http://localhost:8202/users/token`,{userName,password})
+        .then((response) => {
+           // document.getElementById('loginAfter').innerHTML = 'Login Successful'
+            console.log(response.data);
+           if(response.data.accessToken)
+        {
+          localStorage.setItem("token", JSON.stringify(response.data));
+        }
+             
+          
+           
+        
+    })
+        .catch((error) => {
+          console.log(error)
+         // document.getElementById('loginAfter').innerHTML = error.response.data.errorMessage
+        });
       }
+      setIsSubmit(false);
     },[formErrors])
   
     const validate = (value)=>{
       const errors = {}
-      if(!value.username){
-        errors.username = "Please provide username"
+      if(!value.userName){
+        errors.userName = "Please provide userName"
       }
       if(!value.password){
         errors.password = "Please provide password"
@@ -81,16 +89,16 @@ function Login() {
           <div className="ui divider"></div>
           <div className="ui form">
             <div className="field">
-              <label>Username</label>
+              <label>userName</label>
               <input
                 type="text"
-                name="username"
-                placeholder="Username"
-                value={formValues.username}
+                name="userName"
+                placeholder="userName"
+                value={formValues.userName}
                 onChange={handleChange}
               />
             </div>
-            <p className='error'>{formErrors.username}</p>
+            <p className='error'>{formErrors.userName}</p>
 
             <div className="field">
               <label>Password</label>
