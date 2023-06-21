@@ -7,8 +7,11 @@ import UpdateEmployee from "./components/employee/UpdateEmployee";
 import HomePage from "./components/home/HomePage";
 import AddMedicine from "./components/medicine/AddMedicine";
 import MedicineList from "./components/medicine/MedicineList";
-import StockList from "./components/stock/StockList";
-import AddStock from "./components/stock/AddStock";
+// import StockList from "./components/stock/StockList";
+// import AddStock from "./components/stock/AddStock";
+import ListStockComponent from "./components/stock/ListStockComponent";
+import AddStockComponent from "./components/stock/AddStockComponent";
+import UpdateStock from "./components/stock/UpdateStockComponent";
 
 function App() {
   return (
@@ -26,9 +29,9 @@ function App() {
           <Route path="/medicineList" element={<MedicineList />} />
           <Route path="/addmedicine" element={<AddMedicine />} />
           
-          <Route path="/stockList" element={<StockList />}/>
-          <Route path="/addstock" element={<AddStock />}/>
-          
+          <Route path="/liststockcomponent" element={<ListStockComponent />}/>
+          <Route path="/add-stock" element={<AddStockComponent />}/>
+          <Route path="/editStock/:id" element={<UpdateStock />} />
          
           </Routes>
       </BrowserRouter>

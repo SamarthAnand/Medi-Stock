@@ -1,27 +1,27 @@
 import axios from "axios";
 
-const STOCK_API_BASE_URL = 'http://localhost:3000/';
+const STOCK_API_BASE_URL = 'http://localhost:8080/api';
 //"http://localhost:8080/api/v1/employees";
 
 class StockService {
-  saveStock(stockName) {
-    return axios.post(STOCK_API_BASE_URL, stockName);
+  saveStock() {
+    return axios.post(STOCK_API_BASE_URL + "/stock");
   }
 
   getStock() {
-    return axios.get(STOCK_API_BASE_URL);
+    return axios.get(STOCK_API_BASE_URL+ "/stocks");
   }
 
   deleteStock(id) {
-    return axios.delete(STOCK_API_BASE_URL + "/" + id);
+    return axios.delete(STOCK_API_BASE_URL + "/stock/" + id);
   }
 
   getStockById(id) {
-    return axios.get(STOCK_API_BASE_URL + "/" + id);
+    return axios.get(STOCK_API_BASE_URL + "/stock/" + id);
   }
 
-  updateStock(employee, id) {
-    return axios.put(STOCK_API_BASE_URL + "/" + id, employee);
+  updateStock(id) {
+    return axios.put(` http://localhost:8080/api/stock/${id}` );
   }
 }
 

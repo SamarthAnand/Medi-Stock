@@ -5,11 +5,14 @@
   }
 
   thead, tfoot {
-    display: none;
+    display:none;
   }
   table {
     background: none !important;
     border: none !important;
+  }
+  span{
+    font-weight: bold;
   }
   tr {
     display: inline-block;
@@ -30,20 +33,26 @@ div{
 .heading{
     border-radius: 15px 50px 30px 5px;
     background-color: rgb(255, 255, 255);
-    color: rgb(17, 39, 28); 
+    color: rgb(0, 0, 0); 
     text-align: center; 
     padding-left: 1.5rem;  
     padding-right: 1.5rem;
     padding-top: .75rem; 
-    padding-bottom: .75rem
+    padding-bottom: .75rem;
+    font-weight: bolder;
+    font-size: xx-large;
  }
 
 .AddStock{
      border-radius: 15px 15px 15px 15px;
-    background-color: darkgray; 
+    background-color: rgb(135, 197, 141); 
     color:white;
     padding-left: 1.5rem; /* 24px */ 
      padding-right: 1.5rem; /* 24px */ 
     padding-top: .75rem; /*20px */
     padding-bottom: .75rem;/* 20px */ 
+}
+.AddStock :hover{
+  background-color: rgb(40, 105, 46); 
+
 }

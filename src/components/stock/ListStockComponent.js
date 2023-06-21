@@ -10,16 +10,9 @@ const ListStockComponent = () => {
 
     const STOCK_API_BASE_URL = 'http://localhost:8080/api';
 
-    // const config = {
-    //     STOCK_API_BASE_URL,
-    //     headers: {
-    //      'Access-Control-Allow-Origin' : '*',
-    //      'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    //      }
-    //  }
+  
 
     useEffect(() => {
-
         getAllStocks();
     }, [])
 
@@ -67,16 +60,16 @@ const ListStockComponent = () => {
                         stocks.map(
                             stock =>
                             <tr key = {stock.id}> 
-                                <td> {stock.id} </td>
-                                <td> {stock.product_Name} </td>
+                                <td><span>ID     : </span>{stock.id} </td>
+                                <td><span>Product Name :  </span>{stock.product_Name} </td>
                                 <td>{stock.description}</td>
-                                <td>{stock.cName}</td>
-                                <td>{stock.amount}</td>
-                                <td>{stock.batch}</td>
-                                <td>{stock.expiryDate}</td>
-                                <td>{stock.price}</td>
+                                <td><span>Company Name :  </span>{stock.cname}</td>
+                                <td><span>amount :  </span>{stock.amount}</td>
+                                <td><span>Batch Code :  </span>{stock.batch}</td>
+                                <td><span>Expiry Date :  </span>{stock.expiryDate}</td>
+                                <td><span>Price :  </span>{stock.price}</td>
                                 <td>
-                                    <Link className="rounded bg-slate-600 text-white px-6 py-2" to={`/edit-stock/${stock.id}`} >Update</Link>
+                                    {/* <Link className="rounded bg-slate-600 text-white px-6 py-2" to={`/editStock/${stock.id}`} >Update</Link> */}
                                     <button className="rounded bg-slate-600 text-white px-6 py-2" onClick = {() => deleteStock(stock.id)}
                                     style = {{marginLeft:"10px"}}> Delete</button>
                                 </td>
